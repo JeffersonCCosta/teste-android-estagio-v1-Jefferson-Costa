@@ -11,6 +11,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
+import com.example.app_test.ui.navigation.DetailsScreenArgs
+import com.example.app_test.ui.navigation.MainScreen
+import com.example.app_test.ui.screen.DetailsScreen
+import com.example.app_test.ui.screen.MainScreen
 import com.jefferson.testeaiko.ui.theme.TesteAikoTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,29 +28,24 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             TesteAikoTheme {
-                Scaffold( modifier = Modifier.fillMaxSize() ) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                NavGraph()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
+fun NavGraph(
+    navController: NavHostController = rememberNavController(),
+    modifier: Modifier = Modifier
+) {
+    NavHost(
+        navController = navController,
+        startDestination = MainScreen,
         modifier = modifier
-    )
-}
+    ) {
+        composable<MainScreen>{ MainScreen(navController) }
+        composable<DetailsScreenArgs> { DetailsScreen(navController, it.toRoute<DetailsScreenArgs>())}
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    TesteAikoTheme {
-        Greeting("Android")
     }
 }
