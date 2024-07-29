@@ -77,5 +77,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx.v284)
     implementation(libs.kotlinx.serialization.json)
     implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
+    implementation("com.google.android.gms:play-services-maps:18.0.2")
+    implementation("com.google.maps.android:maps-compose:2.4.0")
+    implementation("com.google.accompanist:accompanist-permissions:0.26.2-beta")
 
 }

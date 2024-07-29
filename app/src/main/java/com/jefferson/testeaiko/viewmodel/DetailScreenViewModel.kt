@@ -1,23 +1,24 @@
 package com.example.app_test.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.example.app_test.model.DetailItem
+import androidx.lifecycle.viewModelScope
+import com.jefferson.testeaiko.model.Location
+import com.jefferson.testeaiko.repository.BussRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 
 class DetailScreenViewModel: ViewModel()  {
 
-    private val _detailScreenData = MutableStateFlow<List<DetailItem>>(listOf())
+    private val repository: BussRepository = BussRepository()
+    private val _detailScreenData = MutableStateFlow<List<Location>>(listOf())
     val detailScreenData = _detailScreenData.asStateFlow()
 
 
     fun getDetailsScreenData(id: String) {
-        _detailScreenData.value = listOf(
-            DetailItem("Vai la"),
-            DetailItem("Vai nao"),
-            DetailItem("Vai sim"),
-            DetailItem("Vai nada"),
-            DetailItem("Vai xd"),
-        )
+        repository.getParadas(id).map {
+                data -> _detailScreenData.value = data!!
+        }.launchIn(viewModelScope)
     }
 }

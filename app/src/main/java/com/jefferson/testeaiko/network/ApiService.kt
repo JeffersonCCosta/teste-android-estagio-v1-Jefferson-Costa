@@ -17,6 +17,7 @@ interface ApiService {
 
 
     @GET("Parada/BuscarParadasPorLinha")
-    suspend fun getParadas(@Query("token") token: String = "ac50b9c017f9406702faa73f055c895ddb5d02f3ff4f7d1265b5bd9c2837abbd"): List<Location>
+    suspend fun getParadas(@Query("token") token: String = "ac50b9c017f9406702faa73f055c895ddb5d02f3ff4f7d1265b5bd9c2837abbd",
+                           @Query("codigoLinha") search: String = ""): List<Location>
 
 }

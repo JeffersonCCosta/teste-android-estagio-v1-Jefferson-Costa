@@ -13,9 +13,7 @@ class BussRepository {
     fun getYourData(text: String): Flow<List<BussInfo>?> {
 
         return flow {
-            apiService.getYourData(search = text).map {
-                data ->  data
-            }
+            emit(apiService.getYourData(search = text))
         }
     }
 
@@ -26,11 +24,9 @@ class BussRepository {
         }
     }
 
-    fun getParadas(): Flow<List<Location>?> {
+    fun getParadas(text: String): Flow<List<Location>?> {
         return flow {
-            apiService.getParadas().map {
-                    data ->  data
-            }
+            emit(apiService.getParadas(search = text))
         }
     }
 }
