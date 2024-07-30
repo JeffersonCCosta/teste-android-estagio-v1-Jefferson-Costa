@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -45,6 +46,7 @@ import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.jefferson.testeaiko.R
 import com.jefferson.testeaiko.model.Location
+import com.jefferson.testeaiko.viewmodel.ActualLocation
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -141,13 +143,13 @@ fun MapScreen() {
     }
 
     if (locationPermissionState.status.isGranted) {
-        val singapore = LatLng(1.3521, 103.8198)
+        val singapore = LatLng(ActualLocation.latitude,ActualLocation.longitude)
         val cameraPositionState = rememberCameraPositionState {
             position = CameraPosition.fromLatLngZoom(singapore, 15f)
         }
 
         GoogleMap(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxWidth().height(400.dp),
             cameraPositionState = cameraPositionState,
             properties = MapProperties(isMyLocationEnabled = true)
         ) {
